@@ -39,6 +39,14 @@ pwsh -NoProfile -Command "& ([scriptblock]::Create((Invoke-RestMethod 'https://r
 
 脚本将四个 skill 安装到当前目录的 `.agents/skills/` 并显示来源提交。目标已有同名 skill 时会停止，不覆盖已有内容。请在执行前查看仓库中的安装脚本；以上命令从 `main` 下载并执行脚本。
 
+使用 `sh` 安装后，可在项目根目录运行以下命令更新。更新前会将本地 skill 与安装时的版本逐一比较；如果有本地修改或缺失，停止更新并保留原文件。
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/main/scripts/install-project.sh | sh -s -- --update
+```
+
+`sh` 安装器会在 `.agents/skills/.project-workflow-skills-version` 记录来源 commit。早期安装或 PowerShell 安装没有这个记录时，首次更新需要加上 `--from <原安装时输出的完整commit>`；如果不知道原版本，请先备份并人工比较，不要猜测。更新中断时，脚本会提示原文件备份位置。
+
 需要固定版本时，可下载脚本后运行：PowerShell 传入 `-Ref <tag或commit>`，sh 传入 `--ref <tag或commit>`；这些参数固定 skill 内容的版本。若也要固定脚本本身，请从相同 tag 或 commit 的 URL 下载脚本。
 
 将 `skills/` 下需要的完整目录（包括 `SKILL.md`、`references/` 和 `agents/`，如存在）复制到目标项目的 `.agents/skills/`，按项目需要纳入 Git。不要只复制 `SKILL.md`，否则相对引用的参考文件会缺失。目标项目已有同名 skill 时先比较差异，避免覆盖项目改动。

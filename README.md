@@ -25,6 +25,16 @@ feature 和 refactor 在每个实现阶段完成并验证后提交；quick 和 h
 
 ## 项目安装
 
+在目标项目根目录运行以下一条 PowerShell 7 命令（需要 `pwsh`、Git 和网络）：
+
+```powershell
+pwsh -NoProfile -Command "& ([scriptblock]::Create((Invoke-RestMethod 'https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/main/scripts/install-project.ps1')))"
+```
+
+脚本将四个 skill 安装到当前目录的 `.agents/skills/` 并显示来源提交。目标已有同名 skill 时会停止，不覆盖已有内容。请在执行前查看仓库中的安装脚本；以上命令从 `main` 下载并执行脚本。
+
+需要固定版本时，可下载脚本后运行，并传入 `-Ref <tag或commit>`；该参数固定 skill 内容的版本。若也要固定脚本本身，请从相同 tag 或 commit 的 URL 下载脚本。
+
 将 `skills/` 下需要的完整目录（包括 `SKILL.md`、`references/` 和 `agents/`，如存在）复制到目标项目的 `.agents/skills/`，按项目需要纳入 Git。不要只复制 `SKILL.md`，否则相对引用的参考文件会缺失。目标项目已有同名 skill 时先比较差异，避免覆盖项目改动。
 
 ```text

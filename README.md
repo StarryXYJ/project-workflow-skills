@@ -28,7 +28,7 @@ feature 和 refactor 在每个实现阶段完成并验证后提交；quick 和 h
 macOS 或 Linux 在目标项目根目录运行（需要 `sh`、`curl`、Git 和网络）：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/main/scripts/install-project.sh | sh
+curl -fsSL https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/36c0e08ed91cc5103b9c197e58f0ece10b55c0a0/scripts/install-project.sh | sh
 ```
 
 Windows 可在目标项目根目录运行以下 PowerShell 7 命令（需要 `pwsh`、Git 和网络；macOS 和 Linux 装有 PowerShell 7 时也可使用）：
@@ -37,12 +37,12 @@ Windows 可在目标项目根目录运行以下 PowerShell 7 命令（需要 `pw
 pwsh -NoProfile -Command "& ([scriptblock]::Create((Invoke-RestMethod 'https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/main/scripts/install-project.ps1')))"
 ```
 
-脚本将四个 skill 安装到当前目录的 `.agents/skills/` 并显示来源提交。目标已有同名 skill 时会停止，不覆盖已有内容。请在执行前查看仓库中的安装脚本；以上命令从 `main` 下载并执行脚本。
+脚本将四个 skill 安装到当前目录的 `.agents/skills/` 并显示来源提交。目标已有同名 skill 时会停止，不覆盖已有内容。请在执行前查看仓库中的安装脚本；sh 命令固定脚本版本，PowerShell 命令从 `main` 下载脚本。默认均安装 `main` 的 skill 内容。
 
 使用 `sh` 安装后，可在项目根目录运行以下命令更新。更新前会将本地 skill 与安装时的版本逐一比较；如果有本地修改或缺失，停止更新并保留原文件。
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/main/scripts/install-project.sh | sh -s -- --update
+curl -fsSL https://raw.githubusercontent.com/StarryXYJ/project-workflow-skills/36c0e08ed91cc5103b9c197e58f0ece10b55c0a0/scripts/install-project.sh | sh -s -- --update
 ```
 
 `sh` 安装器会在 `.agents/skills/.project-workflow-skills-version` 记录来源 commit。早期安装或 PowerShell 安装没有这个记录时，首次更新需要加上 `--from <原安装时输出的完整commit>`；如果不知道原版本，请先备份并人工比较，不要猜测。更新中断时，脚本会提示原文件备份位置。
